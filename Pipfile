@@ -8,6 +8,8 @@ requests = "*"
 argparse = "*"
 
 [dev-packages]
+requests = "*"
+pip = "*"
 pytest = "*"
 
 [requires]
