@@ -26,11 +26,11 @@ def fetch_data_from_file(filepath):
     url = f"https://api.fbi.gov/wanted/v1/list"
     response = requests.get(url)
     data = json.loads(response.content)
+    items = data["items"]
     if os.path.exists(filepath):
         try :
             with open(filepath, 'w') as file:
-                json.dump(data["items"], file)
-                
+                json.dump(items, file)
             return data
         except FileNotFoundError:
             print("File not found")
@@ -68,6 +68,9 @@ def main(page=None, file=None):
     # Process and print thorn-separated output
     if data:
         parsed_data = parse_data(data)
+        with open("result.txt", "w", encoding='utf-8') as file:
+            for row in parsed_data:
+                file.write(row + "\n")
         for row in parsed_data:
             print(row)
     else:
