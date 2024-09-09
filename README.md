@@ -25,6 +25,23 @@ To read data from a local JSON file, use this command:
 ```
 pipenv run python main.py --file <file_location>
 ```
+
+# Example Inputs
+To fetch data from the FBI API by specifying the page number, use the following command:
+* Example 1 - Fetching Data from Page 23 : 
+    ```
+    pipenv run python main.py --page 23
+    ```
+* Example 2 - Fetching Data from Page 1 : 
+    ```
+    pipenv run python main.py --page 1
+    ```
+* To read data from a local JSON file ```result.json``` , use this command:
+    ```
+    pipenv run python main.py --file result.json
+    ```
+
+
 # Functions
 ```get_data(page):```
 This function fetches data from the FBI API for a specified page number. It returns the JSON response if the request is successful, otherwise returns None.
