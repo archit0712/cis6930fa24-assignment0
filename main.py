@@ -6,7 +6,7 @@ import os
 
 THORN = 'þ'
 
-def fetch_data_from_api(page):
+def get_data(page):
     """
     Fetch data from the FBI API for the specified page number.
     """
@@ -18,7 +18,7 @@ def fetch_data_from_api(page):
         print(f"Error fetching data from API: {response.status_code}")
         return None
 
-def fetch_data_from_file(filepath):
+def get_data_from_file(filepath):
     """
     Fetch data from a specified JSON file location.
     """
@@ -26,11 +26,19 @@ def fetch_data_from_file(filepath):
     url = f"https://api.fbi.gov/wanted/v1/list"
     response = requests.get(url)
     data = json.loads(response.content)
-    items = data["items"]
+    # items = data["items"]
+    # filtered_data = [
+    # {
+    #     "title": item["title"],
+    #     "subjects": item.get("subjects", []),
+    #     "field_offices": item.get("field_offices", [])
+    # }
+    # for item in items
+    # ]
     if os.path.exists(filepath):
         try :
             with open(filepath, 'w') as file:
-                json.dump(items, file)
+                json.dump(data, file)
             return data
         except FileNotFoundError:
             print("File not found")
@@ -57,10 +65,10 @@ def main(page=None, file=None):
     """
     if page is not None:
         # Download data from the FBI API
-        data = fetch_data_from_api(page)
+        data = get_data(page)
     elif file is not None:
         # Read data from a local JSON file
-        data = fetch_data_from_file(file)
+        data = get_data_from_file(file)
     else:
         print("Please provide either a valid page number or file.")
         sys.exit(1)
